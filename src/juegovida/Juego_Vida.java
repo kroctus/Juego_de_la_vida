@@ -17,6 +17,8 @@ public class Juego_Vida extends javax.swing.JFrame {
     private int numeroCelulas; //Representa el número de celulas en x e y
     private Generacion uno;
     private Generacion dos;
+    private int opcion; // indica si la generación se ha creado con los valores del usuario(1) o aleatoriamente(2)
+    
 
     public Juego_Vida() {
         initComponents();
@@ -72,6 +74,11 @@ public class Juego_Vida extends javax.swing.JFrame {
         jLabel2.setText("¡Bienvenido al Juego de la vida!");
 
         siguienteGen.setText("siguiente generación");
+        siguienteGen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                siguienteGenActionPerformed(evt);
+            }
+        });
 
         botonAleatorio.setText("Generación aleatoria");
         botonAleatorio.addActionListener(new java.awt.event.ActionListener() {
@@ -209,6 +216,7 @@ public class Juego_Vida extends javax.swing.JFrame {
 
 
     private void botonValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonValidarActionPerformed
+        opcion=1;
         if (validarNumeroCelulas()) {
             //Borro lo paneles
             this.resetPaneles();
@@ -273,7 +281,7 @@ public class Juego_Vida extends javax.swing.JFrame {
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void botonAleatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAleatorioActionPerformed
-        
+        opcion=2;
         int numero= Generacion.tamañoAleatorioMatriz();
         if (numero<=70) {
             //Borro lo paneles
@@ -294,7 +302,7 @@ public class Juego_Vida extends javax.swing.JFrame {
 
                     uno.ponerCelula(i, j, tmp);
                     panelIzquierdo.add(uno.getCelula(i, j));
-  
+                    
                 }
             }
 
@@ -306,6 +314,20 @@ public class Juego_Vida extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_botonAleatorioActionPerformed
+
+    private void siguienteGenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteGenActionPerformed
+        System.out.println("Generación ");
+        
+        if (opcion==1) {
+            JOptionPane.showMessageDialog(null, "Generación por valores");
+            
+            
+        }else if (opcion==2){
+           JOptionPane.showMessageDialog(null, "Generación Aleatoria");
+        }
+        
+        
+    }//GEN-LAST:event_siguienteGenActionPerformed
 
     /**
      * @param args the command line arguments
