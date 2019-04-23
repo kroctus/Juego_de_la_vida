@@ -18,7 +18,8 @@ public class Juego_Vida extends javax.swing.JFrame {
     private Generacion uno;
     private Generacion dos;
     private int opcion; // indica si la generación se ha creado con los valores del usuario(1) o aleatoriamente(2)
-    
+    private Integer contador=0;
+    private final Integer contadorGenAnterior=contador;
 
     public Juego_Vida() {
         initComponents();
@@ -45,6 +46,8 @@ public class Juego_Vida extends javax.swing.JFrame {
         panelDerecho = new javax.swing.JPanel();
         generacionActual = new javax.swing.JLabel();
         generacionAnterior = new javax.swing.JLabel();
+        genNumero = new javax.swing.JLabel();
+        genAnteriorNumero = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -166,6 +169,8 @@ public class Juego_Vida extends javax.swing.JFrame {
         generacionAnterior.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         generacionAnterior.setText("Generación Anterior: ");
 
+        genAnteriorNumero.setText("jLabel3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -177,8 +182,13 @@ public class Juego_Vida extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(generacionActual)
-                        .addGap(201, 201, 201)
-                        .addComponent(generacionAnterior))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(genNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(136, 136, 136)
+                        .addComponent(generacionAnterior)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(genAnteriorNumero)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(panelIzquierdo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -195,12 +205,14 @@ public class Juego_Vida extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(generacionActual)
-                    .addComponent(generacionAnterior))
+                    .addComponent(generacionAnterior)
+                    .addComponent(genNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(genAnteriorNumero))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(panelIzquierdo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelDerecho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -216,7 +228,10 @@ public class Juego_Vida extends javax.swing.JFrame {
 
 
     private void botonValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonValidarActionPerformed
-        opcion=1;
+       
+//                contador++;
+//        this.genNumero.setText(contador.toString());
+        opcion = 1;
         if (validarNumeroCelulas()) {
             //Borro lo paneles
             this.resetPaneles();
@@ -281,9 +296,9 @@ public class Juego_Vida extends javax.swing.JFrame {
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void botonAleatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAleatorioActionPerformed
-        opcion=2;
-        int numero= Generacion.tamañoAleatorioMatriz();
-        if (numero<=70) {
+        opcion = 2;
+        int numero = Generacion.tamañoAleatorioMatriz();
+        if (numero <= 70) {
             //Borro lo paneles
             this.resetPaneles();
 
@@ -296,37 +311,34 @@ public class Juego_Vida extends javax.swing.JFrame {
             for (int i = 0; i < numero; i++) {
                 for (int j = 0; j < numero; j++) {
                     int estado = Generacion.generarEstado(); //hago una llamda al método generarEstado() para establecer si la celula estará viva o muerta
-                    Celula tmp = Celula.generarCelula(estado); 
+                    Celula tmp = Celula.generarCelula(estado);
                     tmp.setToolTipText(Integer.toString(i) + "," + Integer.toString(j));
                     tmp.addActionListener(e -> click(tmp));
 
                     uno.ponerCelula(i, j, tmp);
                     panelIzquierdo.add(uno.getCelula(i, j));
-                    
+
                 }
             }
 
             panelIzquierdo.validate();
 
-
         }
-
 
 
     }//GEN-LAST:event_botonAleatorioActionPerformed
 
     private void siguienteGenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteGenActionPerformed
         System.out.println("Generación ");
-        
-        if (opcion==1) {
+
+        if (opcion == 1) {
             JOptionPane.showMessageDialog(null, "Generación por valores");
-            
-            
-        }else if (opcion==2){
-           JOptionPane.showMessageDialog(null, "Generación Aleatoria");
+
+        } else if (opcion == 2) {
+            JOptionPane.showMessageDialog(null, "Generación Aleatoria");
         }
-        
-        
+
+
     }//GEN-LAST:event_siguienteGenActionPerformed
 
     /**
@@ -368,6 +380,8 @@ public class Juego_Vida extends javax.swing.JFrame {
     private javax.swing.JButton botonAleatorio;
     private javax.swing.JButton botonSalir;
     private javax.swing.JButton botonValidar;
+    private javax.swing.JLabel genAnteriorNumero;
+    private javax.swing.JLabel genNumero;
     private javax.swing.JLabel generacionActual;
     private javax.swing.JLabel generacionAnterior;
     private javax.swing.JLabel jLabel1;
