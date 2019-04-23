@@ -97,8 +97,9 @@ public class Generacion {
     //Este método recibe la matriz de celulas copia que devuelve el método copiarMatriz y la recorre realizando las modificaciones 
     // pertinententes en base a la lógica del juego matando y recusitando celulas según las reglas del juego.
     // Una vez realizadas todas las modificaciones se devuelve la matriz copia que será la que se muestre en la siguiente generación.
-    public static Celula[][] AnalizarSituacionCelula(Celula[][] aux) {
+    public Celula[][] analizarSituacionCelula() {
 
+       Celula[][] aux=copiarMatriz();
         for (int i = 0; i < aux.length; i++) {
             for (int j = 0; j < aux.length; j++) {
                 
